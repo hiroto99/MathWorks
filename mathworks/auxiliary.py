@@ -1,6 +1,5 @@
 # 偶数か奇数であるかを返します
 def evenodd(number:int):
-    evens: str = ""
     if number%2 == 0:
         return "even"
     else:
