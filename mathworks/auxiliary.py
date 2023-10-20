@@ -18,3 +18,12 @@ def isodd(number:int):
         return False
     else:
         return True
+
+# FloatをIntに変換します
+def ConvainerforInt(number:float):
+    return int(number)
+
+# IntをFloatに変換します
+def ConvainerforFloat(number:int):
+    return float(number)
+
