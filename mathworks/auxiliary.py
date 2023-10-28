@@ -27,3 +27,16 @@ def ConvainerforInt(number:float):
 def ConvainerforFloat(number:int):
     return float(number)
 
+# 0より大きい数かを返します
+def IsHighfor0(number:int):
+    if number > 0:
+        return True
+    else:
+        return False
+
+# 0より小さい数かを返します
+def IsLowfor0(number:int):
+    if number < 0:
+        return True
+    else:
+        return False

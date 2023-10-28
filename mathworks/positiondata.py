@@ -3,6 +3,7 @@ import time
 
 # 座標に関するクラスです
 class Position:
+
     # 座標の変数を設定します
     def __init__(self, _x:int, _y:int):
         self._x = _x
@@ -64,7 +65,7 @@ class Position:
     # 座標をjsonファイルとして出力します
     def ExportFile(self, path, pos:list):
         wait = time.sleep
-        paths = path + ".json"
+        paths = path + ".log"
         if (os.path.exists(paths)):
             print("The file name '" + paths + "' already exists.")
             wait(0.75)
