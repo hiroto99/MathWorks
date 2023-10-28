@@ -2,7 +2,7 @@ from os import path as os
 import time
 
 # 座標に関するクラスです
-class Position:
+class Position(type):
 
     # 座標の変数を設定します
     def __init__(self, _x:int, _y:int):
