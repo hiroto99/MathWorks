@@ -40,3 +40,5 @@ def IsLowfor0(number:int):
         return True
     else:
         return False
+
+def Lookeven

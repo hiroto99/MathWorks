@@ -1,8 +1,128 @@
+from __future__ import annotations
 from os import path as os
+from typing import (
+    Generic,
+    Iterator,
+    Iterable,
+    SupportsInt,
+    SupportsIndex,
+    TypeVar,
+    Union
+)
+from typing import Tuple
+from typing import (
+    overload,
+)
+from collections.abc import Iterable, Iterator
+from mathworks import SupportsPos
+import sys as system
 import time
 
+P = TypeVar('P')
+F = TypeVar('F', str, str)
+
+class pos(Iterable[P], Generic[P]):
+    def __init__(self, value: Union(list(Tuple(int, int)))):
+        self.value: list(Tuple(int, int)) = value
+
+    def __eq__(self, __x:int, __y:int):
+        selflist = self.value
+        otherlist = tuple(__x, __y)
+        for i in selflist:
+            if (selflist[i] == otherlist):
+                raise ValueError("This variable has already been assigned to " & otherlist)
+        return self.value
+    
+    def __hash__(self):
+        return hash((self.value))
+    
+    def __str__(self) -> str:
+        return str(self.value)
+
+    @overload
+    def __getitem__(self, i: SupportsPos) -> P:
+        if isinstance(i, SupportsPos):
+            return self.value
+    
+    @overload
+    def __getitem__(self, i: SupportsIndex) -> pos[P]:
+        if isinstance(i, SupportsIndex):
+            return self.value[P]
+    
+    @overload
+    def __getitem__(self, i: SupportsInt) -> pos[P][P]:
+        if isinstance(i, SupportsInt):
+            return self.value[P][P]
+    
+    def __iter__(self) -> Iterator[P]:
+        return iter(self.value)
+    
+    def add(self, __x:int, __y:int) -> pos:
+        lists = tuple([__x, __y])
+        self.value.append(lists)
+        return self.value
+    
+    def echo(self, plece:int, plece2:int=None, backcall:bool=False) -> str:
+        """
+            posit.echo(0,0) -> print(posit[0][0])
+
+            echo outputs the index of the position (which is the return value when backcall=true).
+        """
+
+        if (backcall == True):
+            if (plece2 == None):
+                return str(self.value[plece])
+            else:
+                return str(self.value[plece][plece2])
+        else:
+            if (plece2 == None):
+                print(self.value[plece])
+            else:
+                print(self.value[plece][plece2])
+    
+    def clear(self) -> pos:
+        """
+            clear is delete all position.
+        """
+        self.value = []
+        return self.value
+    
+    def delete(self, index:int) -> pos:
+        self.value.remove(self.value[index])
+        return self.value
+
+    def cleanw(self):
+        """
+            cleanw is remove to same position.
+        """
+        board = []
+        for n in self.value:
+            if n in board:
+                pass
+            else:
+                board.append(n)
+        self.value = board
+        return self.value
+
+    def sort(self, turn:bool):
+        """
+            sort sorts number.
+            When turn=False, sorting is done starting with the smallest number.
+            When turn=True, sorting is done starting with the biggest number.
+        """
+        bound = sorted(self.value, reverse=turn)
+        self.value = bound
+        return self.value
+    
+    def find(self, x:int, y:int) -> int:
+        bound = (x, y)
+        if bound in self.value:
+            return self.value.index(bound)
+        else:
+            return -1
+
 # 座標に関するクラスです
-class Position(type):
+class position():
 
     # 座標の変数を設定します
     def __init__(self, _x:int, _y:int):
@@ -63,9 +183,11 @@ class Position(type):
             return None
     
     # 座標をjsonファイルとして出力します
-    def ExportFile(self, path, pos:list):
+    def ExportFile(self, path:F, pos:list) -> F:
+        if system.platform == "win32":
+            raise PlatformError("mathworks.position.ExportFile cannot using for platform win32.")
         wait = time.sleep
-        paths = path + ".log"
+        paths:F = path + ".log"
         if (os.path.exists(paths)):
             print("The file name '" + paths + "' already exists.")
             wait(0.75)
@@ -90,3 +212,8 @@ class Position(type):
                 for A in range(len(pos)):
                     file.write(pos[A])
             print("Finish!")
+
+# オリジナルエラー一覧:
+class CodeError(Exception): ...
+class PlatformError(Exception): ...
+class ValueError(Exception): ...
