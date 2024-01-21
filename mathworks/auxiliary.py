@@ -1,3 +1,9 @@
+from __future__ import annotations
+from typing import Generic, TypeVar, Literal
+
+K = Literal["k", "K"]
+_T = TypeVar('_T', str, int, float)
+
 # 偶数か奇数であるかを返します
 def evenodd(number:int):
     if number%2 == 0:
@@ -41,4 +47,24 @@ def IsLowfor0(number:int):
     else:
         return False
 
-def Lookeven
+class k(Generic[_T]):
+    def __init__(self, num:k):
+        self.int = num
+        self.integer:k = str(num) + "k"
+        if type(num) == str:
+            raise TypeError("k indices must be integers")
+    
+    def __int__(self) -> int:
+        return self.int * 1000
+    
+    def __str__(self) -> str:
+        return str(self.integer)
+    
+    def getk(self) -> str:
+        return str(self.integer)
+    
+    def value(self) -> str:
+        return str(self.int * 1000)
+
+testkc = k(20)
+print(testkc.value())

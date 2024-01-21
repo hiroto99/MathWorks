@@ -6,15 +6,13 @@ from typing import (
     Iterable,
     SupportsInt,
     SupportsIndex,
-    TypeVar,
-    Union
+    TypeVar
 )
-from typing import Tuple
 from typing import (
     overload,
 )
 from collections.abc import Iterable, Iterator
-from mathworks import SupportsPos
+from mathworks import procotol
 import sys as system
 import time
 
@@ -22,37 +20,71 @@ P = TypeVar('P')
 F = TypeVar('F', str, str)
 
 class pos(Iterable[P], Generic[P]):
-    def __init__(self, value: Union(list(Tuple(int, int)))):
-        self.value: list(Tuple(int, int)) = value
+    def __init__(self, value):
+        if type(value) is list:
+            for a in value:
+                if type(a) is not tuple or None:
+                    text = 'can only concatenate {type} (not "tuple") to {type}'
+                    text.format(type=type(a))
+                    raise TypeError(text)
+                elif type(a) is tuple:
+                    if len(a) == 2:
+                        for b in a:
+                            if type(b) is not int:
+                                text = 'can only concatenate {type} (not "int") to {type}'
+                                text.format(type=type(b))
+                                raise TypeError(text)
+                            else:
+                                pass
+                    else:
+                        raise IndexError("list index out of range")
+                else:
+                    pass
+        elif type(value) is None:
+            self.value = None
+        else:
+            text = "pos() argument must be a list, not '{type}'"
+            text.format(type=type(value))
+            raise TypeError(text)
+        self.value = value
 
-    def __eq__(self, __x:int, __y:int):
-        selflist = self.value
-        otherlist = tuple(__x, __y)
-        for i in selflist:
-            if (selflist[i] == otherlist):
-                raise ValueError("This variable has already been assigned to " & otherlist)
-        return self.value
-    
     def __hash__(self):
         return hash((self.value))
     
     def __str__(self) -> str:
         return str(self.value)
-
-    @overload
-    def __getitem__(self, i: SupportsPos) -> P:
-        if isinstance(i, SupportsPos):
-            return self.value
     
-    @overload
-    def __getitem__(self, i: SupportsIndex) -> pos[P]:
-        if isinstance(i, SupportsIndex):
-            return self.value[P]
-    
-    @overload
-    def __getitem__(self, i: SupportsInt) -> pos[P][P]:
+    def __getitem__(self, i: SupportsInt) -> pos[P]:
         if isinstance(i, SupportsInt):
-            return self.value[P][P]
+            return self.value[i]
+    
+    def __setitem__(self, i):
+        if type(i) is list:
+            for a in i:
+                if type(a) is not tuple or None:
+                    text = 'can only concatenate {type} (not "tuple") to {type}'
+                    text.format(type=type(a))
+                    raise TypeError(text)
+                elif type(a) is tuple:
+                    if len(a) == 2:
+                        for b in a:
+                            if type(b) is not int:
+                                text = 'can only concatenate {type} (not "int") to {type}'
+                                text.format(type=type(b))
+                                raise TypeError(text)
+                            else:
+                                pass
+                    else:
+                        raise IndexError("list index out of range")
+                else:
+                    pass
+        elif type(i) is None:
+            self.value = None
+        else:
+            text = "pos() argument must be a list, not '{type}'"
+            text.format(type=type(i))
+            raise TypeError(text)
+        self.value = i
     
     def __iter__(self) -> Iterator[P]:
         return iter(self.value)

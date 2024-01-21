@@ -1,10 +1,10 @@
 import abc
-from typing import TypeVar
+from typing import TypeVar, runtime_checkable, Protocol
 
 P = TypeVar('P')
 
-@abc.runtime_checkable
-class SupportsPos(abc.Protocol[P]):
+@runtime_checkable
+class SupportsPos(Protocol[P]):
     """An ABC with one abstract method __pos__ that is covariant in its return type."""
     __slots__ = ()
 
