@@ -66,5 +66,21 @@ class k(Generic[_T]):
     def value(self) -> str:
         return str(self.int * 1000)
 
-testkc = k(20)
-print(testkc.value())
+class c(Generic[_T]):
+    def __init__(self, num:c):
+        self.int = num
+        self.integer:c = str(num) + "c"
+        if type(num) == str:
+            raise TypeError("c indices must be integers")
+    
+    def __int__(self) -> int:
+        return self.int / 100
+    
+    def __str__(self) -> str:
+        return str(self.integer)
+    
+    def getc(self) -> str:
+        return str(self.integer)
+    
+    def value(self) -> str:
+        return str(self.int / 100)
