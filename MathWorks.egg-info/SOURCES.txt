@@ -1,0 +1,12 @@
+LICENSE
+README.md
+setup.py
+MathWorks.egg-info/PKG-INFO
+MathWorks.egg-info/SOURCES.txt
+MathWorks.egg-info/dependency_links.txt
+MathWorks.egg-info/top_level.txt
+mathworks/__init__.py
+mathworks/auxiliary.py
+mathworks/calculation.py
+mathworks/positiondata.py
+mathworks/procotol.py

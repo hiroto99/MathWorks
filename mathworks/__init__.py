@@ -1,4 +1,4 @@
-from mathworks.auxiliary import (
+from auxiliary import (
     ConvainerforFloat,
     ConvainerforInt,
     evenodd,
@@ -7,5 +7,5 @@ from mathworks.auxiliary import (
     isodd,
     IsLowfor0
 )
-from mathworks.positiondata import pos, position
-from mathworks.procotol import SupportsPos
+from positiondata import pos, position
+from procotol import SupportsPos
